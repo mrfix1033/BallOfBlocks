@@ -23,7 +23,7 @@ public class main_using_easy_EulerAngle extends JavaPlugin implements CommandExe
     }
 
     @EventHandler
-    public void c(PlayerInteractEvent e) {
+    public void a(PlayerInteractEvent e) {
         Location loc = e.getPlayer().getLocation();
         for (int yaw = 0; yaw < 360; yaw += 10) {
             loc.setYaw(yaw);
