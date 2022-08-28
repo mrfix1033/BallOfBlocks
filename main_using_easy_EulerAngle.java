@@ -15,9 +15,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.util.EulerAngle;
 import org.bukkit.util.Vector;
 
-public class main extends JavaPlugin implements CommandExecutor, Listener {
-
-    boolean p = false;
+public class main_using_easy_EulerAngle extends JavaPlugin implements CommandExecutor, Listener {
 
     @Override
     public void onEnable() {
@@ -26,23 +24,17 @@ public class main extends JavaPlugin implements CommandExecutor, Listener {
 
     @EventHandler
     public void c(PlayerInteractEvent e) {
-        if (p) return;
-        p = true;
         Location loc = e.getPlayer().getLocation();
         for (float i = 0; i < 360; i += 10) {
             loc.setYaw(i);
             for (float o = -90; o < 90; o += 10) {
                 loc.setPitch(o);
-                Vector vec = loc.getDirection().multiply(5);
-                ArmorStand a = (ArmorStand) loc.getWorld().spawnEntity(loc.clone().add(vec), EntityType.ARMOR_STAND);
-                a.setHeadPose(new EulerAngle(o / 57.32, 0,0));
-                //a.setHeadPose(new EulerAngle(1.57, 1 / (i * 1.744444), (o + 90) * 3.488888));
+                ArmorStand a = (ArmorStand) loc.getWorld().spawnEntity(
+                        loc.clone().add(loc.getDirection().multiply(5)), EntityType.ARMOR_STAND);
                 a.setGravity(false);
+                a.setHeadPose(new EulerAngle(o / 57.32, 0,0));
                 a.setHelmet(new ItemStack(Material.WOOD));
-                Bukkit.getScheduler().runTaskLater(this, () -> {
-                    a.remove();
-                    p = false;
-                }, 600);
+                Bukkit.getScheduler().runTaskLater(this, a::remove, 600);
                 ((CraftArmorStand) a).getHandle().setInvisible(true);
             }
         }
