@@ -25,14 +25,14 @@ public class main_using_easy_EulerAngle extends JavaPlugin implements CommandExe
     @EventHandler
     public void c(PlayerInteractEvent e) {
         Location loc = e.getPlayer().getLocation();
-        for (float i = 0; i < 360; i += 10) {
-            loc.setYaw(i);
-            for (float o = -90; o < 90; o += 10) {
-                loc.setPitch(o);
+        for (int yaw = 0; yaw < 360; yaw += 10) {
+            loc.setYaw(yaw);
+            for (int pitch = -90; pitch < 91; pitch += 10) {
+                loc.setPitch(pitch);
                 ArmorStand a = (ArmorStand) loc.getWorld().spawnEntity(
                         loc.clone().add(loc.getDirection().multiply(5)), EntityType.ARMOR_STAND);
                 a.setGravity(false);
-                a.setHeadPose(new EulerAngle(o / 57.32, 0,0));
+                a.setHeadPose(new EulerAngle(pitch / 57.32, 0,0));
                 a.setHelmet(new ItemStack(Material.WOOD));
                 Bukkit.getScheduler().runTaskLater(this, a::remove, 600);
                 ((CraftArmorStand) a).getHandle().setInvisible(true);
